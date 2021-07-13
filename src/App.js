@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import { FormControl,Input,InputLabel } from '@material-ui/core';
+import Todo from './Components/Todo';
 
 function App() {
   let [todos, setTodos] = useState(['Do Work', 'HomeWork', 'Take dog for a walk']);
@@ -26,7 +27,8 @@ function App() {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li>{todo}</li>
+          // <li>{todo}</li>
+          <Todo todo={todo}/>
         ))}
 
       </ul>
