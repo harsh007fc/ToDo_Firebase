@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import { FormControl,Input,InputLabel } from '@material-ui/core';
 import Todo from './Components/Todo';
+import db from '../src/Components/Firebase/firebase'
 
 function App() {
   let [todos, setTodos] = useState(['Do Work', 'HomeWork', 'Take dog for a walk']);
   let [input, setInput] = useState('');
 
+ //idhar ek baar hi chalana hai 
+  useEffect(()=>{
+    //this fires when the app loads
+    db.collection('todos').onSnapshot(snapshot=>{
+      setTodos(snapshot.docs.map(doc =>(doc.data().todo)))
+    });
+  },[]);
 
   let addTodo = (e) => {
     e.preventDefault();
+    db.collection('todos').add({
+      todo:input,
+    })
     setTodos([...todos, input]);
     setInput('');
   }
